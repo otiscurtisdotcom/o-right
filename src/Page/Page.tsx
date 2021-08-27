@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import useKeyPress, { Direction } from '../hooks/useKeypress';
 import './Page.scss';
 
 function Page() {
   const [lastDirection, setLastDirection] = useState('');
   const [lastKeyPressed, setLastKeyPressed] = useState('');
-  let [currentWord, setCurrentWord] = useState('');
+  const [currentWord, setCurrentWord] = useState('');
+  const [isCurrentWordValid, setIsCurrentWordValid] = useState(false);
 
   useKeyPress((key: string, direction: Direction)=> {
     setCurrentWord(currentWord + key)
@@ -13,11 +15,31 @@ function Page() {
     setLastKeyPressed(key);
   });
 
+  useEffect(() => {
+    const fetchData = async () => {
+      if (currentWord.length > 2) {
+        const result = await axios(
+          `https://api.datamuse.com/words?sp=${currentWord}&md=d&max=1`,
+        );
+  
+        setIsCurrentWordValid(
+          result.data[0] && result.data[0]['defs'] &&
+          result.data[0]['defs'].length > 0 || false
+        );
+      } else {
+        setIsCurrentWordValid(false);
+      }
+    };
+ 
+    fetchData();
+  }, [currentWord]);
+
   return (
     <div>
       <p>Direction = {lastDirection}</p>
       <p>Last key pressed = {lastKeyPressed}</p>
       <p>Current word = {currentWord}</p>
+      <p>Is this a valid word?: {isCurrentWordValid ? 'YES' : 'NO'}</p>
     </div>
   );
 }
