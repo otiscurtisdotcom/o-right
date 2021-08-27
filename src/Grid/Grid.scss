@@ -1,0 +1,26 @@
+@import '../scss/colours';
+
+.grid {
+  border: 3px solid white;
+  padding: 2px;
+}
+
+.row {
+  display: flex;
+}
+
+.square {
+  background-color: white;
+  display: block;
+  height: 50px;
+  margin: 4px;
+  width: 50px;
+
+  &.current {
+    background-color: $pink;
+  }
+
+  &.goal {
+    background-color: $red;
+  }
+}
