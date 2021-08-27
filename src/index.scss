@@ -1,6 +1,8 @@
+@import 'scss/colours';
+
 body {
-  background-color: blanchedalmond;
-  color: midnightblue;
+  background-color: $black;
+  color: $turquoise;
   font-family: Verdana, sans-serif;
   margin: 0;
 }

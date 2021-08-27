@@ -1,3 +1,5 @@
+@import 'scss/colours';
+
 .App {
   display: flex;
   flex-direction: column;
@@ -6,9 +8,14 @@
 }
 
 header {
-  background-color: white;
+  background-color: $pink;
+  color: $black;
   padding: 20px;
   text-align: center;
+
+  h1 {
+    font-size: 20px;
+  }
 }
 
 main {
@@ -18,12 +25,12 @@ main {
 }
 
 footer {
-  background-color: midnightblue;
+  background-color: $red;
   padding: 6px;
   text-align: center;
 
   p {
-    color: white;
+    color: $black;
     font-size: 11px;
   }
 }
