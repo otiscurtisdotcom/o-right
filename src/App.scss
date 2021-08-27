@@ -26,11 +26,27 @@ main {
 
 footer {
   background-color: $red;
-  padding: 6px;
+  padding: 4px;
   text-align: center;
 
   p {
     color: $black;
-    font-size: 11px;
+    font-size: 10px;
+  }
+}
+
+button {
+  appearance: none;
+  background-color: $turquoise;
+  border: none;
+  border-radius: 0;
+  color: $black;
+  cursor: pointer;
+  display: inline-block;
+  outline: none;
+  padding: 12px;
+
+  &:hover {
+    background-color: $pink;
   }
 }

@@ -34,13 +34,23 @@ function Page() {
     fetchData();
   }, [currentWord]);
 
+  function restart() {
+    setCurrentWord('');
+    setLastDirection('');
+    setLastKeyPressed('');
+  }
+
   return (
-    <div>
+    <section>
       <p>Direction = {lastDirection}</p>
       <p>Last key pressed = {lastKeyPressed}</p>
       <p>Current word = {currentWord}</p>
       <p>Is this a valid word?: {isCurrentWordValid ? 'YES' : 'NO'}</p>
-    </div>
+      
+      <button onClick={restart}>
+        Restart
+      </button>
+    </section>
   );
 }
 
