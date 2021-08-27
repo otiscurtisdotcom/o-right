@@ -69,6 +69,7 @@ const Page = () => {
     setCurrentWord('');
     setLastDirection('');
     setLastKeyPressed('');
+    setGrid(blankGrid({row:3, col:0}, {row:1, col:4}));
   }
 
   return (
