@@ -14,6 +14,7 @@ export interface SquareState {
   currentSquare: boolean;
   goalSquare: boolean;
   letter: string;
+  coords: Coords;
 }
 
 const blankGrid = (start: Coords, goal: Coords): SquareState[][] => {
@@ -24,7 +25,8 @@ const blankGrid = (start: Coords, goal: Coords): SquareState[][] => {
       const square: SquareState = {
         currentSquare: (start.row === row && start.col === col),
         goalSquare: (goal.row === row && goal.col === col),
-        letter: ''
+        letter: '',
+        coords: {row, col}
       };
       rowArray.push(square);
     }
@@ -41,9 +43,7 @@ const Page = () => {
   const [grid, setGrid] = useState(blankGrid({row:3, col:0}, {row:1, col:4}));
 
   useKeyPress((key: string, direction: Direction)=> {
-    setCurrentWord(currentWord + key)
-    setLastDirection(`${direction}`);
-    setLastKeyPressed(key);
+    makeMove(key, direction);
   });
 
   useEffect(() => {
@@ -65,7 +65,43 @@ const Page = () => {
     fetchData();
   }, [currentWord]);
 
-  function restart() {
+  const makeMove = (key: string, direction: Direction) => {
+    const newGrid = grid;
+    const currentRow = grid.find(row => row.some(square => square.currentSquare === true));
+    const currentSquare = currentRow!.find(square => square.currentSquare);
+
+    let newSquare: SquareState; 
+    switch (direction) {
+      case Direction.UP:
+        if (currentSquare?.coords.row === 0) return;
+        newSquare = grid[currentSquare!.coords.row - 1][currentSquare!.coords.col];
+        break;
+      case Direction.DOWN:
+        if (currentSquare?.coords.row === WIDTH) return;
+        newSquare = grid[currentSquare!.coords.row + 1][currentSquare!.coords.col];
+        break;
+      case Direction.LEFT:
+        if (currentSquare?.coords.col === 0) return;
+        newSquare = grid[currentSquare!.coords.row][currentSquare!.coords.col - 1];
+        break;
+      case Direction.RIGHT:
+        if (currentSquare?.coords.col === WIDTH) return;
+        newSquare = grid[currentSquare!.coords.row][currentSquare!.coords.col + 1];
+        break;
+    }
+
+    // Set newSquare in newGrid & wipe old one
+    newSquare.currentSquare = true;
+    newGrid[newSquare.coords.row][newSquare.coords.col] = newSquare;
+    newGrid[currentSquare!.coords.row][currentSquare!.coords.col].currentSquare = false;
+
+    setCurrentWord(currentWord + key)
+    setLastKeyPressed(key);
+    setLastDirection(`${direction}`);
+    setGrid(newGrid);
+  }
+
+  const restart = () => {
     setCurrentWord('');
     setLastDirection('');
     setLastKeyPressed('');

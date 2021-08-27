@@ -3,7 +3,6 @@ import { WIDTH } from '../shared/constants';
 import './Grid.scss';
 
 const Grid = (props: any) => {
-  console.log('GRID STATUS: ', props.gridData);
   const gridData: SquareState[][] = props.gridData
 
   const squares: JSX.Element[] = [];
