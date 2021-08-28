@@ -11,7 +11,7 @@ export interface Coords {
 }
 
 export interface SquareState {
-  currentSquare: boolean;
+  isCurrentSquare: boolean;
   goalSquare: boolean;
   letter: string;
   coords: Coords;
@@ -23,7 +23,7 @@ const blankGrid = (start: Coords, goal: Coords): SquareState[][] => {
     const rowArray: SquareState[] = [];
     for (let col = 0; col < WIDTH; col++) {
       const square: SquareState = {
-        currentSquare: (start.row === row && start.col === col),
+        isCurrentSquare: (start.row === row && start.col === col),
         goalSquare: (goal.row === row && goal.col === col),
         letter: '',
         coords: {row, col}
@@ -41,12 +41,14 @@ const Page = () => {
   const [currentWord, setCurrentWord] = useState('');
   const [isCurrentWordValid, setIsCurrentWordValid] = useState(false);
   const [grid, setGrid] = useState(blankGrid({row:3, col:0}, {row:1, col:4}));
+  const [isCheckingStatus, setIsCheckingStatus] = useState(false);
 
   useKeyPress((key: string, direction: Direction)=> {
     makeMove(key, direction);
   });
 
   useEffect(() => {
+    setIsCheckingStatus(true);
     const fetchData = async () => {
       if (currentWord.length > 2) {
         const result = await axios(
@@ -61,15 +63,21 @@ const Page = () => {
         setIsCurrentWordValid(false);
       }
     };
- 
-    fetchData();
+    fetchData().then(() => {
+      setIsCheckingStatus(false);
+    });
   }, [currentWord]);
+
+  useEffect(() => {
+    if (isCheckingStatus === false && getCurrentSquare().goalSquare) {
+      console.log(`Goal reached. WIN?`, isCurrentWordValid)
+    }
+  }, [isCheckingStatus]);
 
   const makeMove = (key: string, direction: Direction) => {
     const newGrid = grid;
-    const currentRow = grid.find(row => row.some(square => square.currentSquare === true));
-    const currentSquare = currentRow!.find(square => square.currentSquare);
-
+    const currentSquare = getCurrentSquare();
+    
     let newSquare: SquareState; 
     switch (direction) {
       case Direction.UP:
@@ -77,7 +85,7 @@ const Page = () => {
         newSquare = grid[currentSquare!.coords.row - 1][currentSquare!.coords.col];
         break;
       case Direction.DOWN:
-        if (currentSquare?.coords.row === WIDTH) return;
+        if (currentSquare?.coords.row === WIDTH - 1) return;
         newSquare = grid[currentSquare!.coords.row + 1][currentSquare!.coords.col];
         break;
       case Direction.LEFT:
@@ -85,15 +93,18 @@ const Page = () => {
         newSquare = grid[currentSquare!.coords.row][currentSquare!.coords.col - 1];
         break;
       case Direction.RIGHT:
-        if (currentSquare?.coords.col === WIDTH) return;
+        if (currentSquare?.coords.col === WIDTH - 1) return;
         newSquare = grid[currentSquare!.coords.row][currentSquare!.coords.col + 1];
         break;
     }
 
     // Set newSquare in newGrid & wipe old one
-    newSquare.currentSquare = true;
+    newSquare.isCurrentSquare = true;
     newGrid[newSquare.coords.row][newSquare.coords.col] = newSquare;
-    newGrid[currentSquare!.coords.row][currentSquare!.coords.col].currentSquare = false;
+
+    const previousSquare = newGrid[currentSquare!.coords.row][currentSquare!.coords.col];
+    previousSquare.isCurrentSquare = false;
+    previousSquare.letter = key;
 
     setCurrentWord(currentWord + key)
     setLastKeyPressed(key);
@@ -107,6 +118,11 @@ const Page = () => {
     setLastKeyPressed('');
     setGrid(blankGrid({row:3, col:0}, {row:1, col:4}));
   }
+
+  const getCurrentSquare = (): SquareState => {
+    const currentRow = grid.find(row => row.some(square => square.isCurrentSquare === true))!;
+    return currentRow.find(square => square.isCurrentSquare)!;
+  };
 
   return (
     <section>

@@ -22,11 +22,11 @@ const Grid = (props: any) => {
     const status = gridData[row][col];
     return (
       <div className={
-        (status.currentSquare ? 'current ' : '') +
+        (status.isCurrentSquare ? 'current ' : '') +
         (status.goalSquare ? 'goal ' : '') +
         'square'
       }>
-        {status.letter}
+        {status.letter.toUpperCase()}
       </div>
     );
   }

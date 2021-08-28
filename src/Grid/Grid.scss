@@ -10,9 +10,13 @@
 }
 
 .square {
+  align-items: center;
   background-color: white;
-  display: block;
+  display: flex;
+  font-size: 30px;
   height: 50px;
+  justify-content: center;
+  line-height: 30px;
   margin: 4px;
   width: 50px;
 
