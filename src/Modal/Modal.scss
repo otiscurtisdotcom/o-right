@@ -1,0 +1,33 @@
+@import '../scss/colours';
+
+.modal {
+  align-items: center;
+  background-color: $black-semi;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+
+  &.hidden {
+    display: none;
+  }
+
+  .box {
+    background-color: $pink;
+    color: $black;
+    padding: 30px 60px;
+    text-align: center;
+
+    button {
+      background-color: $black;
+      color: white;
+
+      &:hover {
+        background-color: $blue;
+      }
+    }
+  }
+}

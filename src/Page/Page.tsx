@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Grid from '../Grid/Grid';
 import useKeyPress, { Direction } from '../hooks/useKeypress';
+import Modal from '../Modal/Modal';
 import { WIDTH } from '../shared/constants';
 import './Page.scss';
 
@@ -42,6 +43,8 @@ const Page = () => {
   const [isCurrentWordValid, setIsCurrentWordValid] = useState(false);
   const [grid, setGrid] = useState(blankGrid({row:3, col:0}, {row:1, col:4}));
   const [isCheckingStatus, setIsCheckingStatus] = useState(false);
+  const [isPlayingStatus, setIsPlayingStatus] = useState(true);
+  const [winStatus, setWinStatus] = useState(false);
 
   useKeyPress((key: string, direction: Direction)=> {
     makeMove(key, direction);
@@ -70,7 +73,9 @@ const Page = () => {
 
   useEffect(() => {
     if (isCheckingStatus === false && getCurrentSquare().goalSquare) {
-      console.log(`Goal reached. WIN?`, isCurrentWordValid)
+      console.log(`Goal reached. WIN?`, isCurrentWordValid);
+      setWinStatus(isCurrentWordValid);
+      setIsPlayingStatus(false);
     }
   }, [isCheckingStatus]);
 
@@ -98,6 +103,8 @@ const Page = () => {
         break;
     }
 
+    if (newSquare.letter) return;
+
     // Set newSquare in newGrid & wipe old one
     newSquare.isCurrentSquare = true;
     newGrid[newSquare.coords.row][newSquare.coords.col] = newSquare;
@@ -117,6 +124,8 @@ const Page = () => {
     setLastDirection('');
     setLastKeyPressed('');
     setGrid(blankGrid({row:3, col:0}, {row:1, col:4}));
+    setIsPlayingStatus(true);
+    setWinStatus(false);
   }
 
   const getCurrentSquare = (): SquareState => {
@@ -137,6 +146,7 @@ const Page = () => {
         </button>
       </div>
       <Grid gridData={grid} />
+      <Modal isPlayingStatus={isPlayingStatus} winStatus={winStatus} currentWord={currentWord} restart={restart} />
     </section>
   );
 }
