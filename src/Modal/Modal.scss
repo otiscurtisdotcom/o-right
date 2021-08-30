@@ -1,4 +1,5 @@
 @import '../scss/colours';
+@import '../scss/vars';
 
 .modal {
   align-items: center;
@@ -10,16 +11,52 @@
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 1;
 
   &.hidden {
-    display: none;
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
+
+    .box {
+      transform: translateY(20px);
+
+      h2 {
+        letter-spacing: 3px;
+      }
+
+      * {
+        transform: translateY(4px);
+        opacity: 0;
+      }
+    }
   }
 
   .box {
+    align-items: center;
     background-color: $pink;
+    box-shadow: $box-shadow;
     color: $black;
+    display: flex;
+    flex-direction: column;
     padding: 30px 60px;
     text-align: center;
+    transition: transform 0.2s ease;
+
+    * {
+      transition: letter-spacing 0.24s ease-in, opacity 0.3s ease, transform 0.18s ease;
+    }
+
+    @for $i from 1 through 3 {
+      *:nth-child(#{$i}) {
+        transition-delay: ($i * 0.04s) + 0.06s;
+      }
+    }
+
+    h2,
+    p {
+      margin-bottom: 20px;
+    }
 
     button {
       background-color: $black;

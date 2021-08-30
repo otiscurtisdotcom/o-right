@@ -1,8 +1,12 @@
+@import 'scss/buttons';
 @import 'scss/colours';
+@import 'scss/fonts';
+
+* {
+  box-sizing: border-box;
+}
 
 body {
   background-color: $black;
-  color: $turquoise;
-  font-family: Verdana, sans-serif;
   margin: 0;
 }

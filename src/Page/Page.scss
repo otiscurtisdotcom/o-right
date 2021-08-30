@@ -1,10 +1,36 @@
+@import '../scss/colours';
+@import '../scss/vars';
+
 section {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-.info {
-  align-self: center;
-  padding: 30px;
+.text-box {
+  align-items: center;
+  background-color: $blue;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  display: flex;
+  height: 36px;
+  justify-content: center;
+  margin-top: 30px;
   text-align: center;
-  width: 320px;
+  width: 100%;
+
+  h3 {
+    color: #fff;
+  }
+}
+
+.side-bar {
+  position: fixed;
+  right: 0;
+
+  button {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 }

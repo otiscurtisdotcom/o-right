@@ -5,14 +5,11 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>O-Right</h1>
+        <h1>O→Right</h1>
       </header>
       <main>
         <Page />
       </main>
-      <footer>
-        <p>Copyright</p>
-      </footer>
     </div>
   );
 }

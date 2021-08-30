@@ -37,8 +37,6 @@ const blankGrid = (start: Coords, goal: Coords): SquareState[][] => {
 }
 
 const Page = () => {
-  const [lastDirection, setLastDirection] = useState('');
-  const [lastKeyPressed, setLastKeyPressed] = useState('');
   const [currentWord, setCurrentWord] = useState('');
   const [isCurrentWordValid, setIsCurrentWordValid] = useState(false);
   const [grid, setGrid] = useState(blankGrid({row:3, col:0}, {row:1, col:4}));
@@ -114,15 +112,11 @@ const Page = () => {
     previousSquare.letter = key;
 
     setCurrentWord(currentWord + key)
-    setLastKeyPressed(key);
-    setLastDirection(`${direction}`);
     setGrid(newGrid);
   }
 
   const restart = () => {
     setCurrentWord('');
-    setLastDirection('');
-    setLastKeyPressed('');
     setGrid(blankGrid({row:3, col:0}, {row:1, col:4}));
     setIsPlayingStatus(true);
     setWinStatus(false);
@@ -134,20 +128,27 @@ const Page = () => {
   };
 
   return (
-    <section>
-      <div className="info">
-        <p>Direction = {lastDirection}</p>
-        <p>Last key pressed = {lastKeyPressed}</p>
-        <p>Current word = {currentWord}</p>
-        <p>Is this a valid word?: {isCurrentWordValid ? 'YES' : 'NO'}</p>
-        
-        <button onClick={restart}>
-          Restart
+    <>
+      <section>
+        <Grid gridData={grid} />
+        <div className="text-box">
+          <h3>{currentWord.toUpperCase()}</h3>
+        </div>
+      </section>
+
+      <Modal 
+        isPlayingStatus={isPlayingStatus}
+        winStatus={winStatus}
+        currentWord={currentWord}
+        restart={restart}
+      />
+
+      <div className="side-bar">
+        <button className="square-btn" onClick={restart}>
+          R
         </button>
       </div>
-      <Grid gridData={grid} />
-      <Modal isPlayingStatus={isPlayingStatus} winStatus={winStatus} currentWord={currentWord} restart={restart} />
-    </section>
+    </>
   );
 }
 

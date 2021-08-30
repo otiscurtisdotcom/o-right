@@ -1,8 +1,17 @@
 @import '../scss/colours';
+@import '../scss/vars';
 
 .grid {
-  border: 3px solid white;
-  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+  .wrapper {
+    background-color: $blue;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+    padding: 2px;
+  }
 }
 
 .row {
@@ -12,13 +21,16 @@
 .square {
   align-items: center;
   background-color: white;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow-inner;
   display: flex;
   font-size: 30px;
-  height: 50px;
+  height: 66px;
   justify-content: center;
   line-height: 30px;
   margin: 4px;
-  width: 50px;
+  transition: background-color 0.08s ease-in;
+  width: 66px;
 
   &.current {
     background-color: $pink;

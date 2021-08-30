@@ -10,7 +10,7 @@ const Grid = (props: any) => {
     const rowContainer: JSX.Element[] = [];
     for(let column = 0; column < WIDTH; column++) {
       rowContainer.push(
-        <span>{renderSquare(row, column)}</span>
+        <>{renderSquare(row, column)}</>
       );
     }
     squares.push(
@@ -33,7 +33,9 @@ const Grid = (props: any) => {
 
   return (
     <div className="grid">
-      {squares}
+      <div className="wrapper">
+        {squares}
+      </div>
     </div>
   );
 }

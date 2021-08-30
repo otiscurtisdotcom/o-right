@@ -1,0 +1,30 @@
+@import './colours';
+@import './vars';
+
+button {
+  appearance: none;
+  background-color: $turquoise;
+  border: none;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow-sm;
+  color: $black;
+  cursor: pointer;
+  display: flex;
+  font-size: 22px;
+  height: 42px;
+  justify-content: center;
+  letter-spacing: 2px;
+  line-height: 20px;
+  outline: none;
+  padding: 12px;
+  text-align: center;
+  transition: background-color 0.1s ease-out;
+
+  &:hover {
+    background-color: $pink;
+  }
+
+  &.square-btn {
+    width: 42px;
+  }
+}
