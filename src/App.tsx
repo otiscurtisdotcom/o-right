@@ -1,11 +1,12 @@
 import './App.scss';
+import Logo from './Logo/Logo';
 import Page from './Page/Page';
 
 function App() {
   return (
     <div className="App">
       <header>
-        <h1>O→Right</h1>
+        <Logo />
       </header>
       <main>
         <Page />

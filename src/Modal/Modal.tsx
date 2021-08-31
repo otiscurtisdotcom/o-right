@@ -9,11 +9,13 @@ const Modal = (props: {
   return (
     <div className={(props.isPlayingStatus ? 'hidden ' : '') + 'modal'}>
       <div className="box">
-        <h2>{props.winStatus ? 'Well done' : 'Unlucky'}</h2>
-        <p>
-          {props.currentWord.toUpperCase()}
-          {props.winStatus ? ' is a valid word' : ' is not a valid word'}
-        </p>
+        <div className="text">
+          <h2>{props.winStatus ? 'Well done' : 'Unlucky'}</h2>
+          <p>
+            {props.currentWord.toUpperCase()}
+            {props.winStatus ? ' is a valid word' : ' is not a valid word'}
+          </p>
+        </div>
         <button onClick={props.restart}>RESTART</button>
       </div>
     </div>

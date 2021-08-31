@@ -25,12 +25,12 @@
   box-shadow: $box-shadow-inner;
   display: flex;
   font-size: 30px;
-  height: 66px;
+  height: 50px;
   justify-content: center;
   line-height: 30px;
   margin: 4px;
   transition: background-color 0.08s ease-in;
-  width: 66px;
+  width: 50px;
 
   &.current {
     background-color: $pink;

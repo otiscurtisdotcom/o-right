@@ -11,6 +11,8 @@ button {
   cursor: pointer;
   display: flex;
   font-size: 22px;
+  font-variation-settings: "wdth" 96;
+  font-weight: 720;
   height: 42px;
   justify-content: center;
   letter-spacing: 2px;
@@ -18,10 +20,12 @@ button {
   outline: none;
   padding: 12px;
   text-align: center;
-  transition: background-color 0.1s ease-out;
+  transition: background-color 0.1s ease-out 0s, font-variation-settings 0.07s ease 0.03s, font-weight 0.06s ease 0.02s;
 
   &:hover {
     background-color: $pink;
+    font-variation-settings: "wdth" 100;
+    font-weight: 800;
   }
 
   &.square-btn {

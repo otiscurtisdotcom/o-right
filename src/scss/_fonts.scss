@@ -1,27 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&family=Staatliches&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Saira:wdth,wght@50..125,200..800&display=swap');
 
 body, * {
-  font-family: 'Staatliches', sans-serif;
+  font-family: 'Saira', sans-serif;
+  font-weight: 800;
 }
 
 p {
-  font-family: 'Source Code Pro', monospace;
+  font-weight: 200;
 }
 
 h1, h2, h3, p {
   margin: 0;
 }
 
-h1 {
-  font-size: 64px;
-  letter-spacing: 14px;
-  line-height: 64px;
-}
-
 h2 {
   font-size: 40px;
-  letter-spacing: 4px;
+  letter-spacing: 1px;
   line-height: 40px;
+  text-transform: uppercase;
 }
 
 h3 {

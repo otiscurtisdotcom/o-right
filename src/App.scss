@@ -3,27 +3,26 @@
 
 .App {
   background: $black;
-  background: linear-gradient(200deg, $black 0%, $blue-fade 100%);
+  background: linear-gradient(200deg, $black 0%, $blue-fade 50%, $black 100%);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   min-height: 100vh;
 }
 
 header {
-  box-shadow: inset 20vw -20vh 50vh rgba(15, 82, 140, 0.06);
-  background: $pink;
-  background: linear-gradient(190deg, $pink 0%, $pink-fade 100%);
-  box-shadow: $box-shadow;
-  color: $black;
-  height: 100px;
+  // box-shadow: inset 20vw -20vh 50vh rgba(15, 82, 140, 0.06);
+  // background: $pink;
+  // background: linear-gradient(190deg, $pink 0%, $pink-fade 100%);
+  // box-shadow: $box-shadow;
+  // color: $black;
+  display: flex;
+  justify-content: center;
   padding: 18px;
-  text-align: center;
 }
 
 main {
   display: flex;
   justify-content: center;
-  min-height: calc(100vh - 120px);
   width: 100%;
 }
