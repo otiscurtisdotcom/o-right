@@ -3,20 +3,8 @@ import { useEffect, useState } from 'react';
 import Grid from '../Grid/Grid';
 import useKeyPress, { Direction } from '../hooks/useKeypress';
 import Modal from '../Modal/Modal';
-import { WIDTH } from '../shared/constants';
-import './Page.scss';
-
-export interface Coords {
-  row: number;
-  col: number;
-}
-
-export interface SquareState {
-  isCurrentSquare: boolean;
-  goalSquare: boolean;
-  letter: string;
-  coords: Coords;
-}
+import { Coords, SquareState, WIDTH } from '../shared/constants';
+import './Game.scss';
 
 const blankGrid = (start: Coords, goal: Coords): SquareState[][] => {
   const grid: SquareState[][] = [];
@@ -36,7 +24,7 @@ const blankGrid = (start: Coords, goal: Coords): SquareState[][] => {
   return grid;
 }
 
-const Page = () => {
+const Game = (props: {goToMenu(): void}) => {
   const [currentWord, setCurrentWord] = useState('');
   const [isCurrentWordValid, setIsCurrentWordValid] = useState(false);
   const [grid, setGrid] = useState(blankGrid({row:3, col:0}, {row:1, col:4}));
@@ -147,9 +135,12 @@ const Page = () => {
         <button className="square-btn" onClick={restart}>
           R
         </button>
+        <button className="square-btn" onClick={props.goToMenu}>
+          M
+        </button>
       </div>
     </>
   );
 }
 
-export default Page;
+export default Game;

@@ -1,5 +1,4 @@
-import { SquareState } from '../Page/Page';
-import { WIDTH } from '../shared/constants';
+import { SquareState, WIDTH } from '../shared/constants';
 import './Grid.scss';
 
 const Grid = (props: any) => {
