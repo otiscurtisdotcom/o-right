@@ -1,0 +1,14 @@
+@import '../scss/colours';
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+
+  button.square {
+    background-color: $turquoise;
+
+    &:hover {
+      background-color: $pink;
+    }
+  }
+}

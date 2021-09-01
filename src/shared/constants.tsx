@@ -10,4 +10,9 @@ export interface SquareState {
   coords: Coords;
 }
 
+export interface Level {
+  start: Coords;
+  end: Coords;
+}
+
 export const WIDTH = 5;
