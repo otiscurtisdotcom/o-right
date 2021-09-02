@@ -1,15 +1,14 @@
+import { Link } from 'react-router-dom';
 import { levelsMap } from '../shared/levels';
 import './Menu.scss';
 
-const Menu = (props: {
-  goToLevel(level: number): any
-}) => {
+const Menu = () => {
   const levelsElements: JSX.Element[] = [];
   for (let i = 1; i < levelsMap.length + 1; i++) {
     levelsElements.push(
-      <button className="square" onClick={() => {props.goToLevel(i); }}>
+      <Link className="square button" to={`level/${i}`}>
         {i}
-      </button>
+      </Link>
     )
   };
 

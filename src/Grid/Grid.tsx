@@ -1,10 +1,23 @@
-import { SquareState, WIDTH } from '../shared/constants';
+import { Level, SquareState, WIDTH } from '../shared/constants';
 import './Grid.scss';
 
-const Grid = (props: any) => {
-  const gridData: SquareState[][] = props.gridData
-
+const Grid = (props: {gridData: SquareState[][], currentLevel?: Level}) => {
+  const gridData = props.gridData;
   const squares: JSX.Element[] = [];
+
+  const renderSquare = (row: number, col: number) => {
+    const status = gridData[row][col];
+    return (
+      <div className={
+        (status.isCurrentSquare && props.currentLevel ? 'current ' : '') +
+        (status.goalSquare && props.currentLevel ? 'goal ' : '') +
+        'square'
+      }>
+        {status.letter.toUpperCase()}
+      </div>
+    );
+  };
+
   for(let row = 0; row < WIDTH; row++) {
     const rowContainer: JSX.Element[] = [];
     for(let column = 0; column < WIDTH; column++) {
@@ -17,21 +30,8 @@ const Grid = (props: any) => {
     );
   };
 
-  function renderSquare(row: number, col: number) {
-    const status = gridData[row][col];
-    return (
-      <div className={
-        (status.isCurrentSquare ? 'current ' : '') +
-        (status.goalSquare ? 'goal ' : '') +
-        'square'
-      }>
-        {status.letter.toUpperCase()}
-      </div>
-    );
-  }
-
   return (
-    <div className="grid">
+    <div className={(props.currentLevel ? 'shown ' : '') + 'grid'}>
       <div className="wrapper">
         {squares}
       </div>

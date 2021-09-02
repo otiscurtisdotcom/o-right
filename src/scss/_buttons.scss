@@ -1,7 +1,8 @@
 @import './colours';
 @import './vars';
 
-button {
+button,
+.button {
   appearance: none;
   background-color: $turquoise;
   border: none;
@@ -20,6 +21,7 @@ button {
   outline: none;
   padding: 12px;
   text-align: center;
+  text-decoration: none;
   transition: background-color 0.1s ease-out 0s, font-variation-settings 0.07s ease 0.03s, font-weight 0.06s ease 0.02s;
 
   &:hover {

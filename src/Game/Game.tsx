@@ -1,10 +1,12 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 import Grid from '../Grid/Grid';
-import useKeyPress, { Direction } from '../hooks/useKeypress';
 import Modal from '../Modal/Modal';
-import { Coords, SquareState, WIDTH } from '../shared/constants';
+import useKeyPress, { Direction } from '../hooks/useKeypress';
+import { Coords, Level, SquareState, WIDTH } from '../shared/constants';
 import './Game.scss';
+import { levelsMap } from '../shared/levels';
 
 const blankGrid = (start: Coords, goal: Coords): SquareState[][] => {
   const grid: SquareState[][] = [];
@@ -24,10 +26,11 @@ const blankGrid = (start: Coords, goal: Coords): SquareState[][] => {
   return grid;
 }
 
-const Game = (props: {goToMenu(): void}) => {
+const Game = (props: {location: {pathname: string}}) => {
+  const [currentLevel, setCurrentLevel] = useState<Level>();
   const [currentWord, setCurrentWord] = useState('');
   const [isCurrentWordValid, setIsCurrentWordValid] = useState(false);
-  const [grid, setGrid] = useState(blankGrid({row:3, col:0}, {row:1, col:4}));
+  const [grid, setGrid] = useState<SquareState[][]>(blankGrid({row:0,col:0},{row:1,col:1}));
   const [isCheckingStatus, setIsCheckingStatus] = useState(false);
   const [isPlayingStatus, setIsPlayingStatus] = useState(true);
   const [winStatus, setWinStatus] = useState(false);
@@ -35,6 +38,18 @@ const Game = (props: {goToMenu(): void}) => {
   useKeyPress((key: string, direction: Direction)=> {
     makeMove(key, direction);
   });
+
+  useEffect(() => {
+    const levelPath = props.location.pathname;
+    const levelNum = Number(levelPath.split('/')[2]) - 1;
+    setCurrentLevel(levelsMap[levelNum]);
+  }, []);
+
+  useEffect(() => {
+    if (currentLevel) {
+      setGrid(blankGrid(currentLevel.start, currentLevel.end));
+    }
+  }, [currentLevel]);
 
   useEffect(() => {
     setIsCheckingStatus(true);
@@ -58,14 +73,16 @@ const Game = (props: {goToMenu(): void}) => {
   }, [currentWord]);
 
   useEffect(() => {
-    if (isCheckingStatus === false && getCurrentSquare().goalSquare) {
-      console.log(`Goal reached. WIN?`, isCurrentWordValid);
+    const currentSquare = getCurrentSquare();
+    if (isCheckingStatus === false && currentSquare && currentSquare.goalSquare) {
       setWinStatus(isCurrentWordValid);
       setIsPlayingStatus(false);
     }
   }, [isCheckingStatus]);
 
   const makeMove = (key: string, direction: Direction) => {
+    if (!grid) return;
+    
     const newGrid = grid;
     const currentSquare = getCurrentSquare();
     
@@ -105,20 +122,22 @@ const Game = (props: {goToMenu(): void}) => {
 
   const restart = () => {
     setCurrentWord('');
-    setGrid(blankGrid({row:3, col:0}, {row:1, col:4}));
+    setGrid(blankGrid(currentLevel!.start, currentLevel!.end));
     setIsPlayingStatus(true);
     setWinStatus(false);
   }
 
-  const getCurrentSquare = (): SquareState => {
-    const currentRow = grid.find(row => row.some(square => square.isCurrentSquare === true))!;
-    return currentRow.find(square => square.isCurrentSquare)!;
+  const getCurrentSquare = (): SquareState | null => {
+    if (grid) {
+      const currentRow = grid.find(row => row.some(square => square.isCurrentSquare === true))!;
+      return currentRow.find(square => square.isCurrentSquare)!;
+    } else return null;
   };
 
   return (
     <>
       <section>
-        <Grid gridData={grid} />
+        <Grid gridData={grid} currentLevel={currentLevel} />
         <div className="text-box">
           <h3>{currentWord.toUpperCase()}</h3>
         </div>
@@ -135,9 +154,9 @@ const Game = (props: {goToMenu(): void}) => {
         <button className="square-btn" onClick={restart}>
           R
         </button>
-        <button className="square-btn" onClick={props.goToMenu}>
+        <Link className="button square-btn" to="/">
           M
-        </button>
+        </Link>
       </div>
     </>
   );

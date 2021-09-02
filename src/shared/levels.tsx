@@ -8,7 +8,7 @@ export const levelsMap: Level[] = [
     },
     end: {
       row: 2,
-      col: 1
+      col: 0
     },
   },
   { // LEVEL 2
@@ -24,11 +24,11 @@ export const levelsMap: Level[] = [
   { // LEVEL 3
     start: {
       row: 2,
-      col: 1
+      col: 3
     },
     end: {
-      row: 0,
-      col: 0
+      row: 2,
+      col: 2
     },
   },
   { // LEVEL 4
