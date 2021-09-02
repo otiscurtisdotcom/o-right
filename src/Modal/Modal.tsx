@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './Modal.scss';
 
 const Modal = (props: {
@@ -16,7 +17,14 @@ const Modal = (props: {
             {props.winStatus ? ' is a valid word' : ' is not a valid word'}
           </p>
         </div>
-        <button onClick={props.restart}>RESTART</button>
+        <div className="buttons">
+          <button onClick={props.restart}>
+            RESTART
+          </button>
+          <Link className="button" to="/">
+            MAP
+          </Link>
+        </div>
       </div>
     </div>
   )

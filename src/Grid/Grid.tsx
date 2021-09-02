@@ -8,7 +8,7 @@ const Grid = (props: {gridData: SquareState[][], currentLevel?: Level}) => {
   const renderSquare = (row: number, col: number) => {
     const status = gridData[row][col];
     return (
-      <div className={
+      <div key={`square-${row}-${col}`} className={
         (status.isCurrentSquare && props.currentLevel ? 'current ' : '') +
         (status.goalSquare && props.currentLevel ? 'goal ' : '') +
         'square'
@@ -22,11 +22,13 @@ const Grid = (props: {gridData: SquareState[][], currentLevel?: Level}) => {
     const rowContainer: JSX.Element[] = [];
     for(let column = 0; column < WIDTH; column++) {
       rowContainer.push(
-        <>{renderSquare(row, column)}</>
+        <span key={`wrapper-${row}-${column}`}>
+          {renderSquare(row, column)}
+        </span>
       );
-    }
+    };
     squares.push(
-      <div className="row">{rowContainer}</div>
+      <div key={`row-${row}`} className="row">{rowContainer}</div>
     );
   };
 

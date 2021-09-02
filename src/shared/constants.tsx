@@ -22,3 +22,5 @@ export interface DataMuseData {
 }
 
 export const WIDTH = 5;
+
+export const USER_LEVEL = 'userLevel';

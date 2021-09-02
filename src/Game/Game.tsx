@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Grid from '../Grid/Grid';
 import Modal from '../Modal/Modal';
@@ -35,8 +35,14 @@ const getFrequency = (tags?: string[]): number => {
   }
 }
 
-const Game = (props: {location: {pathname: string}}) => {
+const Game = (props: {
+  userLevel: number,
+  nextLevel: any
+}) => {
+  const levelPath = useLocation().pathname;
+
   const [currentLevel, setCurrentLevel] = useState<Level>();
+  const [currentLevelNumber, setCurrentLevelNumber] = useState<Number>();
   const [currentWord, setCurrentWord] = useState('');
   const [isCurrentWordValid, setIsCurrentWordValid] = useState(false);
   const [grid, setGrid] = useState<SquareState[][]>(blankGrid({row:0,col:0},{row:1,col:1}));
@@ -49,9 +55,9 @@ const Game = (props: {location: {pathname: string}}) => {
   });
 
   useEffect(() => {
-    const levelPath = props.location.pathname;
-    const levelNum = Number(levelPath.split('/')[2]) - 1;
-    setCurrentLevel(levelsMap[levelNum]);
+    const levelNum = Number(levelPath.split('/')[2]);
+    setCurrentLevel(levelsMap[levelNum - 1]);
+    setCurrentLevelNumber(levelNum);
   }, []);
 
   useEffect(() => {
@@ -101,6 +107,13 @@ const Game = (props: {location: {pathname: string}}) => {
       setIsPlayingStatus(false);
     }
   }, [isCheckingStatus]);
+
+  useEffect(() => {
+    // Unlock next level if userLevel is completed
+    if (winStatus && props.userLevel === currentLevelNumber) {
+      props.nextLevel();
+    }
+  }, [winStatus])
 
   const makeMove = (key: string, direction: Direction) => {
     if (!grid) return;

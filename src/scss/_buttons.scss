@@ -33,4 +33,9 @@ button,
   &.square-btn {
     width: 42px;
   }
+
+  &.disabled {
+    cursor: default;
+    pointer-events: none;
+  }
 }

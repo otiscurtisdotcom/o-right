@@ -2,12 +2,15 @@ import { Link } from 'react-router-dom';
 import { levelsMap } from '../shared/levels';
 import './Menu.scss';
 
-const Menu = () => {
+const Menu = (props: {userLevel: number}) => {
   const levelsElements: JSX.Element[] = [];
   for (let i = 1; i < levelsMap.length + 1; i++) {
+    const disabled = i > props.userLevel;
+    const buttonContent = disabled ? '' : `${i}`;
+
     levelsElements.push(
-      <Link className="square button" to={`level/${i}`}>
-        {i}
+      <Link key={`menu-${i}`} className={(disabled ? 'disabled ' : '') + 'square button'} to={`level/${i}`}>
+        {buttonContent}
       </Link>
     )
   };

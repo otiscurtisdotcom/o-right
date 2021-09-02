@@ -7,6 +7,10 @@
   .button.square {
     background-color: $turquoise;
 
+    &.disabled {
+      background-color: $blue;
+    }
+
     &:hover {
       background-color: $pink;
     }

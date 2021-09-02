@@ -31,9 +31,9 @@ const directions: keySet[] = [
   }
 ];
 
-export default function useKeyPress(action: any) {
+const useKeyPress = (action: any) => {
   useEffect(() => {
-    function onKeyup(event: KeyboardEvent) {
+    const onKeyup = (event: KeyboardEvent) => {
       const directionObj = checkDirection(event.key);
       if (directionObj) {
         action(event.key, directionObj.direction);
@@ -44,9 +44,11 @@ export default function useKeyPress(action: any) {
   });
 }
 
-function checkDirection(key:string): keySet | undefined {
+const checkDirection = (key:string): keySet | undefined => {
   return directions.find((group) => {
     const containsKey = group.keys.some((letter) => letter === key);
     return containsKey ? group : null;
   });
 }
+
+export default useKeyPress;

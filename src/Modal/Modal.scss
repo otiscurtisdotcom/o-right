@@ -58,12 +58,21 @@
       transition: font-variation-settings 0.36s ease-in, font-weight 0.36s ease-in, opacity 0.3s ease, transform 0.18s ease;
     }
 
-    button {
-      background-color: $black;
-      color: white;
+    .buttons {
+      display: flex;
 
-      &:hover {
-        background-color: $blue;
+      button,
+      .button {
+        background-color: $black;
+        color: white;
+
+        &:hover {
+          background-color: $blue;
+        }
+      }
+
+      button {
+        margin-right: 12px;
       }
     }
   }
