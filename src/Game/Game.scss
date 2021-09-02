@@ -29,9 +29,20 @@ section {
   position: fixed;
   right: 0;
 
-  button {
+  button,
+  .button {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     margin-bottom: 14px;
+    padding: 10px;
+    transition: padding 0.18s ease;
+
+    &:hover {
+      padding: 8px;
+    }
+
+    svg {
+      fill: $black;
+    }
   }
 }

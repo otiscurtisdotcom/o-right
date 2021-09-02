@@ -40,6 +40,7 @@ const Game = (props: {
   nextLevel: any
 }) => {
   const levelPath = useLocation().pathname;
+  const iconPath = process.env.PUBLIC_URL + '/svg/icons.svg';
 
   const [currentLevel, setCurrentLevel] = useState<Level>();
   const [currentLevelNumber, setCurrentLevelNumber] = useState<Number>();
@@ -187,10 +188,14 @@ const Game = (props: {
 
       <div className="side-bar">
         <button className="square-btn" onClick={restart}>
-          R
+          <svg>
+            <use href={`${iconPath}#reset`} />
+          </svg>
         </button>
         <Link className="button square-btn" to="/">
-          M
+          <svg>
+            <use href={`${iconPath}#map`} />
+          </svg>
         </Link>
       </div>
     </>
