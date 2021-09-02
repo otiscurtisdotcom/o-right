@@ -15,4 +15,10 @@ export interface Level {
   end: Coords;
 }
 
+export interface DataMuseData {
+  word: string;
+  tags: string[];
+  defs?: string[];
+}
+
 export const WIDTH = 5;

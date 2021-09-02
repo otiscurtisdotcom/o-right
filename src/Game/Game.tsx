@@ -4,7 +4,7 @@ import axios from 'axios';
 import Grid from '../Grid/Grid';
 import Modal from '../Modal/Modal';
 import useKeyPress, { Direction } from '../hooks/useKeypress';
-import { Coords, Level, SquareState, WIDTH } from '../shared/constants';
+import { Coords, DataMuseData, Level, SquareState, WIDTH } from '../shared/constants';
 import './Game.scss';
 import { levelsMap } from '../shared/levels';
 
@@ -54,14 +54,23 @@ const Game = (props: {location: {pathname: string}}) => {
   useEffect(() => {
     setIsCheckingStatus(true);
     const fetchData = async () => {
-      if (currentWord.length > 2) {
+      const currentSquare = getCurrentSquare();
+      if (currentWord.length > 2 && currentSquare && currentSquare.goalSquare) {
         const result = await axios(
-          `https://api.datamuse.com/words?sp=${currentWord}&md=d&max=1`,
+          `https://api.datamuse.com/words?sp=${currentWord}&md=fr,d,p&max=1`,
         );
-  
+
+        const word: DataMuseData = result.data[0];
+        const frequency: number = Number(word.tags.find(tag => 
+          tag.includes('f:')
+        )?.replace('f:',''));
+
         setIsCurrentWordValid(
-          result.data[0] && result.data[0]['defs'] &&
-          result.data[0]['defs'].length > 0 || false
+          word.defs && word.defs.length > 0
+          && word.word === currentWord
+          && word.tags && !word.tags.includes("prop")
+          && frequency > 1
+          || false
         );
       } else {
         setIsCurrentWordValid(false);
