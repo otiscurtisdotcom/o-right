@@ -1,7 +1,8 @@
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  HashRouter
 } from 'react-router-dom';
 import './App.scss';
 import Logo from './Logo/Logo';
@@ -15,12 +16,12 @@ const App = () => {
         <Logo />
       </header>
       <main>
-        <Router>
+        <HashRouter basename='/'>
           <Switch>
             <Route path="/level/:id" component={Game} />
-            <Route path="/" exact component={Menu} />
+            <Route exact path="/" component={Menu} />
           </Switch>
-        </Router>
+        </HashRouter>
       </main>
     </div>
   );
