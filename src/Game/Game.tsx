@@ -26,6 +26,15 @@ const blankGrid = (start: Coords, goal: Coords): SquareState[][] => {
   return grid;
 }
 
+const getFrequency = (tags?: string[]): number => {
+  if (tags) {
+    return Number(tags.find(tag => tag.includes('f:'))
+          ?.replace('f:',''));
+  } else {
+    return 0;
+  }
+}
+
 const Game = (props: {location: {pathname: string}}) => {
   const [currentLevel, setCurrentLevel] = useState<Level>();
   const [currentWord, setCurrentWord] = useState('');
@@ -61,15 +70,21 @@ const Game = (props: {location: {pathname: string}}) => {
         );
 
         const word: DataMuseData = result.data[0];
-        const frequency: number = Number(word.tags.find(tag => 
-          tag.includes('f:')
-        )?.replace('f:',''));
+
+        console.log(word);
+        
+        if (!word || !word.tags) {
+          setIsCurrentWordValid(false);
+          return;
+        }
+
+        const frequency = getFrequency(word.tags);
 
         setIsCurrentWordValid(
           word.defs && word.defs.length > 0
           && word.word === currentWord
           && word.tags && !word.tags.includes("prop")
-          && frequency > 1
+          && frequency > 0.15
           || false
         );
       } else {
