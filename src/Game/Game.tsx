@@ -71,15 +71,13 @@ const Game = (props: {location: {pathname: string}}) => {
 
         const word: DataMuseData = result.data[0];
 
-        console.log(word);
-        
         if (!word || !word.tags) {
           setIsCurrentWordValid(false);
           return;
         }
 
         const frequency = getFrequency(word.tags);
-
+        
         setIsCurrentWordValid(
           word.defs && word.defs.length > 0
           && word.word === currentWord
