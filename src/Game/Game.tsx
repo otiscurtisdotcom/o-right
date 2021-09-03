@@ -50,6 +50,7 @@ const Game = (props: {
   const [isCheckingStatus, setIsCheckingStatus] = useState(false);
   const [isPlayingStatus, setIsPlayingStatus] = useState(true);
   const [winStatus, setWinStatus] = useState(false);
+  const [showMap, setShowMap] = useState(false);
 
   useKeyPress((key: string, direction: Direction)=> {
     makeMove(key, direction);
@@ -184,6 +185,8 @@ const Game = (props: {
         winStatus={winStatus}
         currentWord={currentWord}
         restart={restart}
+        showMap={showMap}
+        hideMap={() => setShowMap(false)}
       />
 
       <div className="side-bar">
@@ -193,10 +196,15 @@ const Game = (props: {
           </svg>
         </button>
         <Link className="button square-btn" to="/">
+          <svg className="arrow-left">
+            <use href={`${iconPath}#arrow`} />
+          </svg>
+        </Link>
+        <button className="square-btn" onClick={() => setShowMap(true)}>
           <svg>
             <use href={`${iconPath}#map`} />
           </svg>
-        </Link>
+        </button>
       </div>
     </>
   );
