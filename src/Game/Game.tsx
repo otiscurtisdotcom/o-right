@@ -87,10 +87,10 @@ const Game = (props: {
         const frequency = getFrequency(word.tags);
         
         setIsCurrentWordValid(
-          word.defs && word.defs.length > 0
-          && word.word === currentWord
+          // word.defs && word.defs.length > 0
+          word.word === currentWord
           && word.tags && !word.tags.includes("prop")
-          && frequency > 0.15
+          && frequency > 0.01
           || false
         );
       } else {
