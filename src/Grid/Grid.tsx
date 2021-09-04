@@ -1,10 +1,11 @@
-import { Level, SquareState, WIDTH } from '../shared/constants';
+import { Direction, ICON_PATH, Level, SquareState, WIDTH } from '../shared/constants';
 import './Grid.scss';
 
 const Grid = (props: {
   gridData: SquareState[][],
   currentLevel?: Level,
   isShaking: boolean,
+  keyDown: Direction | null
 }) => {
   const gridData = props.gridData;
   const squares: JSX.Element[] = [];
@@ -19,9 +20,22 @@ const Grid = (props: {
               (status.isKeySquare ? 'key ' : '')
       }
     }
+
+    const squareContent = () => {
+      if (props.keyDown && status.isCurrentSquare) {
+        return (
+          <svg className={`arrow-${props.keyDown}`}>
+            <use href={`${ICON_PATH}#arrow`} />
+          </svg>
+        );
+      } else {
+        return <span>{status.letter.toUpperCase()}</span>;
+      }
+    }
+
     return (
       <div key={`square-${row}-${col}`} className={`${classes()}square`}>
-        {status.letter.toUpperCase()}
+        {squareContent()}
       </div>
     );
   };

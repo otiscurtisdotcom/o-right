@@ -59,6 +59,10 @@
   &.key {
     background-color: $turquoise;
   }
+
+  svg {
+    fill: $black;
+  }
 }
 
 @keyframes shake {

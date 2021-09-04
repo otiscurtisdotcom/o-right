@@ -3,10 +3,11 @@ import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Grid from '../Grid/Grid';
 import Modal from '../Modal/Modal';
-import useKeyPress, { Direction } from '../hooks/useKeypress';
-import { DataMuseData, DEFAULT_GRID, Level, SquareState, WIDTH } from '../shared/constants';
+import useKeyUp from '../hooks/useKeyUp';
+import { DataMuseData, Direction, DEFAULT_GRID, Level, SquareState, WIDTH, directions, ICON_PATH } from '../shared/constants';
 import './Game.scss';
 import { levelsMap } from '../shared/levels';
+import useKeyDown from '../hooks/useKeyDown';
 
 const blankGrid = (level: Level): SquareState[][] => {
   const grid: SquareState[][] = [];
@@ -48,7 +49,6 @@ const Game = (props: {
   nextLevel: any
 }) => {
   const levelPath = useLocation().pathname;
-  const iconPath = process.env.PUBLIC_URL + '/svg/icons.svg';
 
   const [currentLevel, setCurrentLevel] = useState<Level>();
   const [currentLevelNumber, setCurrentLevelNumber] = useState<Number>();
@@ -60,8 +60,14 @@ const Game = (props: {
   const [winStatus, setWinStatus] = useState(false);
   const [showMap, setShowMap] = useState(false);
   const [isShaking, setIsShaking] = useState(false);
+  const [keyDown, setKeyDown] = useState<Direction | null>(null);
 
-  useKeyPress((key: string, direction: Direction)=> {
+  useKeyDown((direction: Direction) => {
+    setKeyDown(direction);
+  });
+
+  useKeyUp((key: string, direction: Direction) => {
+    setKeyDown(null);
     makeMove(key, direction);
   });
 
@@ -94,7 +100,6 @@ const Game = (props: {
         }
 
         const frequency = getFrequency(word.tags);
-        
         setIsCurrentWordValid(
           // word.defs && word.defs.length > 0
           word.word === currentWord
@@ -132,7 +137,7 @@ const Game = (props: {
     const newGrid = grid;
     const currentSquare = getCurrentSquare();
     
-    let newSquare: SquareState; 
+    let newSquare: SquareState;
     switch (direction) {
       case Direction.UP:
         if (currentSquare?.coords.row === 0) {
@@ -205,7 +210,12 @@ const Game = (props: {
   return (
     <>
       <section>
-        <Grid gridData={grid} currentLevel={currentLevel} isShaking={isShaking} />
+        <Grid
+          gridData={grid}
+          currentLevel={currentLevel}
+          isShaking={isShaking}
+          keyDown={keyDown}
+        />
         <div className="text-box">
           <h3>{currentWord.toUpperCase()}</h3>
         </div>
@@ -223,17 +233,17 @@ const Game = (props: {
       <div className="side-bar">
         <button className="square-btn" onClick={restart}>
           <svg>
-            <use href={`${iconPath}#reset`} />
+            <use href={`${ICON_PATH}#reset`} />
           </svg>
         </button>
         <Link className="button square-btn" to="/">
           <svg className="arrow-left">
-            <use href={`${iconPath}#arrow`} />
+            <use href={`${ICON_PATH}#arrow`} />
           </svg>
         </Link>
         <button className="square-btn" onClick={() => setShowMap(true)}>
           <svg>
-            <use href={`${iconPath}#map`} />
+            <use href={`${ICON_PATH}#map`} />
           </svg>
         </button>
       </div>
