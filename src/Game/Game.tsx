@@ -206,7 +206,7 @@ const Game = (props: {
     setIsShaking(true);
     setTimeout(() => {
       setIsShaking(false);
-    }, 600)
+    }, 600);
   }
 
   return (

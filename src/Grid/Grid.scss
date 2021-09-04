@@ -44,10 +44,6 @@
   transition: background-color 0.08s ease-in;
   width: 50px;
 
-  &.current {
-    background-color: $pink;
-  }
-
   &.goal {
     background-color: $red;
   }
@@ -58,6 +54,10 @@
 
   &.key {
     background-color: $turquoise;
+  }
+
+  &.current {
+    background-color: $pink;
   }
 
   svg {
