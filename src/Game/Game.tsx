@@ -4,18 +4,26 @@ import axios from 'axios';
 import Grid from '../Grid/Grid';
 import Modal from '../Modal/Modal';
 import useKeyPress, { Direction } from '../hooks/useKeypress';
-import { Coords, DataMuseData, Level, SquareState, WIDTH } from '../shared/constants';
+import { DataMuseData, DEFAULT_GRID, Level, SquareState, WIDTH } from '../shared/constants';
 import './Game.scss';
 import { levelsMap } from '../shared/levels';
 
-const blankGrid = (start: Coords, goal: Coords): SquareState[][] => {
+const blankGrid = (level: Level): SquareState[][] => {
   const grid: SquareState[][] = [];
   for (let row = 0; row < WIDTH; row++) {
     const rowArray: SquareState[] = [];
     for (let col = 0; col < WIDTH; col++) {
       const square: SquareState = {
-        isCurrentSquare: (start.row === row && start.col === col),
-        goalSquare: (goal.row === row && goal.col === col),
+        isCurrentSquare: (level.start.row === row && level.start.col === col),
+        isGoalSquare: (level.end.row === row && level.end.col === col),
+        isMineSquare: (
+          level.mines?.some(mine => mine.row === row && mine.col === col) 
+          || false
+        ),
+        isKeySquare: (
+          level.keys?.some(key => key.row === row && key.col === col) 
+          || false
+        ),
         letter: '',
         coords: {row, col}
       };
@@ -46,7 +54,7 @@ const Game = (props: {
   const [currentLevelNumber, setCurrentLevelNumber] = useState<Number>();
   const [currentWord, setCurrentWord] = useState('');
   const [isCurrentWordValid, setIsCurrentWordValid] = useState(false);
-  const [grid, setGrid] = useState<SquareState[][]>(blankGrid({row:0,col:0},{row:1,col:1}));
+  const [grid, setGrid] = useState<SquareState[][]>(blankGrid(DEFAULT_GRID));
   const [isCheckingStatus, setIsCheckingStatus] = useState(false);
   const [isPlayingStatus, setIsPlayingStatus] = useState(true);
   const [winStatus, setWinStatus] = useState(false);
@@ -64,7 +72,7 @@ const Game = (props: {
 
   useEffect(() => {
     if (currentLevel) {
-      setGrid(blankGrid(currentLevel.start, currentLevel.end));
+      setGrid(blankGrid(currentLevel));
     }
   }, [currentLevel]);
 
@@ -72,7 +80,7 @@ const Game = (props: {
     setIsCheckingStatus(true);
     const fetchData = async () => {
       const currentSquare = getCurrentSquare();
-      if (currentWord.length > 2 && currentSquare && currentSquare.goalSquare) {
+      if (currentWord.length > 2 && currentSquare && currentSquare.isGoalSquare) {
         const result = await axios(
           `https://api.datamuse.com/words?sp=${currentWord}&md=fr,d,p&max=1`,
         );
@@ -104,7 +112,7 @@ const Game = (props: {
 
   useEffect(() => {
     const currentSquare = getCurrentSquare();
-    if (isCheckingStatus === false && currentSquare && currentSquare.goalSquare) {
+    if (isCheckingStatus === false && currentSquare && currentSquare.isGoalSquare) {
       setWinStatus(isCurrentWordValid);
       setIsPlayingStatus(false);
     }
@@ -159,7 +167,7 @@ const Game = (props: {
 
   const restart = () => {
     setCurrentWord('');
-    setGrid(blankGrid(currentLevel!.start, currentLevel!.end));
+    setGrid(blankGrid(currentLevel!));
     setIsPlayingStatus(true);
     setWinStatus(false);
   }

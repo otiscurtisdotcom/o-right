@@ -110,6 +110,12 @@ export const levelsMap: Level[] = [
       row: 1,
       col: 3
     },
+    mines: [
+      {
+        row: 2,
+        col: 2
+      }
+    ]
   },
   { // LEVEL 12
     start: {
@@ -120,6 +126,12 @@ export const levelsMap: Level[] = [
       row: 2,
       col: 3
     },
+    mines: [
+      {
+        row: 3,
+        col: 3
+      }
+    ]
   },
   { // LEVEL 13
     start: {
@@ -130,6 +142,12 @@ export const levelsMap: Level[] = [
       row: 1,
       col: 3
     },
+    mines: [
+      {
+        row: 1,
+        col: 2
+      }
+    ]
   },
   { // LEVEL 14
     start: {
@@ -140,6 +158,16 @@ export const levelsMap: Level[] = [
       row: 0,
       col: 2
     },
+    mines: [
+      {
+        row: 2,
+        col: 1
+      },
+      {
+        row: 0,
+        col: 1
+      }
+    ]
   },
   { // LEVEL 15
     start: {
@@ -150,6 +178,16 @@ export const levelsMap: Level[] = [
       row: 1,
       col: 4
     },
+    mines: [
+      {
+        row: 2,
+        col: 0
+      },
+      {
+        row: 2,
+        col: 3
+      },
+    ]
   },
   { // LEVEL 16
     start: {
@@ -160,6 +198,16 @@ export const levelsMap: Level[] = [
       row: 0,
       col: 4
     },
+    mines: [
+      {
+        row: 0,
+        col: 1
+      },
+      {
+        row: 1,
+        col: 1
+      },
+    ]
   },
   { // LEVEL 17
     start: {
@@ -170,6 +218,16 @@ export const levelsMap: Level[] = [
       row: 0,
       col: 0
     },
+    mines: [
+      {
+        row: 4,
+        col: 0
+      },
+      {
+        row: 3,
+        col: 3
+      },
+    ]
   },
   { // LEVEL 18
     start: {
@@ -180,6 +238,16 @@ export const levelsMap: Level[] = [
       row: 0,
       col: 1
     },
+    mines: [
+      {
+        row: 3,
+        col: 2
+      },
+      {
+        row: 4,
+        col: 1
+      },
+    ]
   },
   { // LEVEL 19
     start: {
@@ -190,6 +258,12 @@ export const levelsMap: Level[] = [
       row: 4,
       col: 2
     },
+    mines: [
+      {
+        row: 2,
+        col: 2
+      },
+    ]
   },
   { // LEVEL 20
     start: {
@@ -200,6 +274,16 @@ export const levelsMap: Level[] = [
       row: 4,
       col: 1
     },
+    mines: [
+      {
+        row: 1,
+        col: 1
+      },
+      {
+        row: 1,
+        col: 3
+      },
+    ]
   },
   { // LEVEL 21
     start: {
@@ -207,49 +291,79 @@ export const levelsMap: Level[] = [
       col: 2
     },
     end: {
-      row: 0,
-      col: 4
+      row: 2,
+      col: 2
     },
+    keys: [
+      {
+        row: 3,
+        col: 1
+      },
+    ]
   },
   { // LEVEL 22
     start: {
-      row: 2,
-      col: 4
+      row: 1,
+      col: 1
     },
     end: {
       row: 0,
       col: 3
     },
+    keys: [
+      {
+        row: 0,
+        col: 0
+      },
+    ]
   },
   { // LEVEL 23
     start: {
-      row: 1,
-      col: 4
-    },
-    end: {
       row: 3,
       col: 4
     },
+    end: {
+      row: 1,
+      col: 3
+    },
+    keys: [
+      {
+        row: 4,
+        col: 3
+      },
+    ]
   },
   { // LEVEL 24
     start: {
-      row: 3,
+      row: 1,
       col: 1
     },
     end: {
-      row: 0,
-      col: 1
+      row: 3,
+      col: 3
     },
+    keys: [
+      {
+        row: 4,
+        col: 2
+      },
+    ]
   },
   { // LEVEL 25
     start: {
-      row: 1,
-      col: 2
+      row: 4,
+      col: 1
     },
     end: {
-      row: 4,
-      col: 2
+      row: 1,
+      col: 1
     },
+    keys: [
+      {
+        row: 3,
+        col: 3
+      },
+    ]
   },
   { // LEVEL 26
     start: {
@@ -260,6 +374,16 @@ export const levelsMap: Level[] = [
       row: 4,
       col: 2
     },
+    keys: [
+      {
+        row: 3,
+        col: 1
+      },
+      {
+        row: 3,
+        col: 3
+      },
+    ]
   },
   { // LEVEL 27
     start: {
@@ -270,6 +394,16 @@ export const levelsMap: Level[] = [
       row: 1,
       col: 3
     },
+    keys: [
+      {
+        row: 0,
+        col: 1
+      },
+      {
+        row: 3,
+        col: 1
+      },
+    ]
   },
   { // LEVEL 28
     start: {
@@ -280,6 +414,12 @@ export const levelsMap: Level[] = [
       row: 1,
       col: 0
     },
+    keys: [
+      {
+        row: 4,
+        col: 3
+      },
+    ]
   },
   { // LEVEL 29
     start: {
@@ -288,8 +428,18 @@ export const levelsMap: Level[] = [
     },
     end: {
       row: 1,
-      col: 3
+      col: 2
     },
+    keys: [
+      {
+        row: 3,
+        col: 0
+      },
+      {
+        row: 1,
+        col: 3
+      },
+    ]
   },
   { // LEVEL 30
     start: {
@@ -300,5 +450,11 @@ export const levelsMap: Level[] = [
       row: 3,
       col: 3
     },
+    keys: [
+      {
+        row: 0,
+        col: 0
+      },
+    ]
   }
 ]

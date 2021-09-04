@@ -5,7 +5,9 @@ export interface Coords {
 
 export interface SquareState {
   isCurrentSquare: boolean;
-  goalSquare: boolean;
+  isGoalSquare: boolean;
+  isMineSquare: boolean;
+  isKeySquare: boolean;
   letter: string;
   coords: Coords;
 }
@@ -13,6 +15,8 @@ export interface SquareState {
 export interface Level {
   start: Coords;
   end: Coords;
+  mines?: Coords[];
+  keys?: Coords[];
 }
 
 export interface DataMuseData {
@@ -24,3 +28,8 @@ export interface DataMuseData {
 export const WIDTH = 5;
 
 export const USER_LEVEL = 'userLevel';
+
+export const DEFAULT_GRID: Level = {
+  start:{row:0,col:0},
+  end: {row:1,col:1}
+}

@@ -7,12 +7,16 @@ const Grid = (props: {gridData: SquareState[][], currentLevel?: Level}) => {
 
   const renderSquare = (row: number, col: number) => {
     const status = gridData[row][col];
+    const classes = () => {
+      if (props.currentLevel) {
+       return (status.isCurrentSquare ? 'current ' : '') +
+              (status.isGoalSquare ? 'goal ' : '') +
+              (status.isMineSquare ? 'mine ' : '') +
+              (status.isKeySquare ? 'key ' : '')
+      }
+    }
     return (
-      <div key={`square-${row}-${col}`} className={
-        (status.isCurrentSquare && props.currentLevel ? 'current ' : '') +
-        (status.goalSquare && props.currentLevel ? 'goal ' : '') +
-        'square'
-      }>
+      <div key={`square-${row}-${col}`} className={`${classes()}square`}>
         {status.letter.toUpperCase()}
       </div>
     );

@@ -47,4 +47,12 @@
   &.goal {
     background-color: $red;
   }
+
+  &.mine {
+    background-color: $black;
+  }
+
+  &.key {
+    background-color: $turquoise;
+  }
 }
