@@ -59,6 +59,7 @@ const Game = (props: {
   const [isPlayingStatus, setIsPlayingStatus] = useState(true);
   const [winStatus, setWinStatus] = useState(false);
   const [showMap, setShowMap] = useState(false);
+  const [isShaking, setIsShaking] = useState(false);
 
   useKeyPress((key: string, direction: Direction)=> {
     makeMove(key, direction);
@@ -134,24 +135,39 @@ const Game = (props: {
     let newSquare: SquareState; 
     switch (direction) {
       case Direction.UP:
-        if (currentSquare?.coords.row === 0) return;
+        if (currentSquare?.coords.row === 0) {
+          shake();
+          return;
+        }
         newSquare = grid[currentSquare!.coords.row - 1][currentSquare!.coords.col];
         break;
       case Direction.DOWN:
-        if (currentSquare?.coords.row === WIDTH - 1) return;
+        if (currentSquare?.coords.row === WIDTH - 1) {
+          shake();
+          return;
+        }
         newSquare = grid[currentSquare!.coords.row + 1][currentSquare!.coords.col];
         break;
       case Direction.LEFT:
-        if (currentSquare?.coords.col === 0) return;
+        if (currentSquare?.coords.col === 0) {
+          shake();
+          return;
+        }
         newSquare = grid[currentSquare!.coords.row][currentSquare!.coords.col - 1];
         break;
       case Direction.RIGHT:
-        if (currentSquare?.coords.col === WIDTH - 1) return;
+        if (currentSquare?.coords.col === WIDTH - 1) {
+          shake();
+          return;
+        }
         newSquare = grid[currentSquare!.coords.row][currentSquare!.coords.col + 1];
         break;
     }
 
-    if (newSquare.letter) return;
+    if (newSquare.letter || newSquare.isMineSquare) {
+      shake();
+      return;
+    }
 
     // Set newSquare in newGrid & wipe old one
     newSquare.isCurrentSquare = true;
@@ -179,10 +195,17 @@ const Game = (props: {
     } else return null;
   };
 
+  const shake = () => {
+    setIsShaking(true);
+    setTimeout(() => {
+      setIsShaking(false);
+    }, 600)
+  }
+
   return (
     <>
       <section>
-        <Grid gridData={grid} currentLevel={currentLevel} />
+        <Grid gridData={grid} currentLevel={currentLevel} isShaking={isShaking} />
         <div className="text-box">
           <h3>{currentWord.toUpperCase()}</h3>
         </div>

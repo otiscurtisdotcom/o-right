@@ -1,7 +1,11 @@
 import { Level, SquareState, WIDTH } from '../shared/constants';
 import './Grid.scss';
 
-const Grid = (props: {gridData: SquareState[][], currentLevel?: Level}) => {
+const Grid = (props: {
+  gridData: SquareState[][],
+  currentLevel?: Level,
+  isShaking: boolean,
+}) => {
   const gridData = props.gridData;
   const squares: JSX.Element[] = [];
 
@@ -36,8 +40,13 @@ const Grid = (props: {gridData: SquareState[][], currentLevel?: Level}) => {
     );
   };
 
+  const classes = () => {
+    return `${props.currentLevel ? 'shown ' : ''}
+            ${props.isShaking ? 'shaking ' : ''}`;
+  }
+
   return (
-    <div className={(props.currentLevel ? 'shown ' : '') + 'grid'}>
+    <div className={`${classes()} grid`}>
       <div className="wrapper">
         {squares}
       </div>

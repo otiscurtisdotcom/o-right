@@ -175,8 +175,8 @@ export const levelsMap: Level[] = [
       col: 0
     },
     end: {
-      row: 1,
-      col: 4
+      row: 0,
+      col: 3
     },
     mines: [
       {
@@ -184,8 +184,8 @@ export const levelsMap: Level[] = [
         col: 0
       },
       {
-        row: 2,
-        col: 3
+        row: 1,
+        col: 2
       },
     ]
   },

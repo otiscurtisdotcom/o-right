@@ -13,6 +13,10 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  &.shaking {
+    animation: shake 140ms linear infinite;
+  }
   
   .wrapper {
     background-color: $blue;
@@ -55,4 +59,11 @@
   &.key {
     background-color: $turquoise;
   }
+}
+
+@keyframes shake {
+  0% { transform: rotate(0); }
+  25% { transform: rotate(-2deg); }
+  75% { transform: rotate(2deg); }
+  100% { transform: rotate(0); }
 }
