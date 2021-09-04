@@ -6,7 +6,6 @@ const useKeyDown = (action: any) => {
     const onKeyDown = (event: KeyboardEvent) => {
       const directionObj = checkDirection(event.key);
       if (directionObj) {
-        console.log('HERe');
         action(directionObj.direction);
       }
     }

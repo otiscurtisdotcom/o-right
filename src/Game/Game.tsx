@@ -119,7 +119,7 @@ const Game = (props: {
   useEffect(() => {
     const currentSquare = getCurrentSquare();
     if (isCheckingStatus === false && currentSquare && currentSquare.isGoalSquare) {
-      setWinStatus(isCurrentWordValid);
+      setWinStatus(isCurrentWordValid && checkKeys());
       setIsPlayingStatus(false);
     }
   }, [isCheckingStatus]);
@@ -193,11 +193,13 @@ const Game = (props: {
     setWinStatus(false);
   }
 
-  const getCurrentSquare = (): SquareState | null => {
-    if (grid) {
-      const currentRow = grid.find(row => row.some(square => square.isCurrentSquare === true))!;
-      return currentRow.find(square => square.isCurrentSquare)!;
-    } else return null;
+  const getCurrentSquare = (): SquareState => {
+    return grid && grid.flat().find(square => square.isCurrentSquare)!;
+  };
+
+  const checkKeys = (): boolean => {
+    const keys = grid.flat().filter(square => square.isKeySquare);
+    return keys ? !keys.some(key=> key.letter === '') : true;
   };
 
   const shake = () => {
