@@ -3,7 +3,7 @@
 
 .modal {
   align-items: center;
-  background-color: $black-semi;
+  background-color: $blue-semi;
   display: flex;
   height: 100%;
   justify-content: center;
@@ -35,10 +35,10 @@
 
   .box {
     align-items: center;
-    background-color: $pink;
+    background-color: $black;
     border-radius: $border-radius;
     box-shadow: $box-shadow;
-    color: $black;
+    color: white;
     display: flex;
     flex-direction: column;
     padding: 30px 60px;
@@ -63,22 +63,23 @@
 
       button,
       .button {
-        background-color: $black;
+        background-color: $red;
         color: white;
+        margin-right: 12px;
 
         &:hover {
           background-color: $blue;
         }
-      }
 
-      button {
-        margin-right: 12px;
+        &:last-child {
+          margin-right: 0;
+        }
       }
     }
   }
 
   img {
-    margin-bottom: 12px;
+    margin: 16px 0 36px;
     width: 560px;
   }
 }
